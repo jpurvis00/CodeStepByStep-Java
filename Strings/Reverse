@@ -1,0 +1,30 @@
+/* This class accepts a user inputed string and reverses it. */
+
+import acm.program.*;
+
+public class Reverse extends ConsoleProgram	{
+	public void run() {
+		String str = readLine("Input string: ");
+		
+		println("Reversed string: " + reverseString(str));
+	}
+	
+	/* Reverses the string that is passed to it.
+	 * ex. hello -> olleh
+	 */
+	private String reverseString(String str) {
+		//Stores the new string we are building
+		String newStr = "";
+		//Stores each char that we pull off the string
+		char ch;
+		
+		//Start at the end of the string and remove the chars one at a time
+		//and put them into the new string which will reverse the order.
+		for(int i = str.length() - 1; i >= 0; i--) {
+			ch = str.charAt(i);
+			newStr += ch;
+		}
+		
+		return newStr;
+	}
+}
