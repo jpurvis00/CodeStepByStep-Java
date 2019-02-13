@@ -1,1 +1,22 @@
+/** This class simply takes a string input from a user and an int
+ * from the user.  We will concactenate the string the int #
+ * of times.
+ */
+
+import acm.program.*;
+
+public class Repeat extends ConsoleProgram {
+	public void run() {
+		String str = readLine("Input string: ");
+		String newStr = "";
+		int repeatTimes = readInt("How many times would you like it repeated: ");
+		
+		//Concactenate the str however many x the user says to.
+		for(int i = 0; i < repeatTimes; i++) {
+			newStr += str;
+		}
+		
+		println("New string is: " + newStr);
+	}
+}
 
