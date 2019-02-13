@@ -1,0 +1,46 @@
+/* This class takes a user inputed string and char.  It then checks the string
+ * to see if the char appears 2x or more.
+ */
+
+import acm.program.*;
+
+public class ContainsTwice extends ConsoleProgram{
+
+	public void run() {
+		String str = readLine("Input a string: ");
+		String str2 = readLine("Input char to check for 2 or more occurrences in string: ");
+		
+		if(checkForMultiples(str, str2))
+			println(str2 + " appears 2 or more times in your string.");
+		else
+			println(str2 + " does not appear 2 or more times in your string.");
+	}
+	
+	/* Takes the passed string(str) and checks to see if the passed letter(str2) appears
+	 * more two or more times in the string.  Return true if it does, false if not.
+	 */
+	private boolean checkForMultiples(String str, String str2) {
+		//Stores one char from the string each time through the for loop
+		char ch = ' ';
+		//Stores how many times the letter has occurred in the string
+		int count = 0;
+		
+		//Check each char in the string
+		for(int i = 0; i < str.length(); i++) {
+			//Get one char at a time from the string(str)
+			ch = str.charAt(i);
+			
+			//Is the specified letter(str2) equal to the char we pulled from the string?
+			//If so, increase count by 1.
+			if(ch == str2.charAt(0)) {
+				count += 1;
+			}
+		}
+		
+		//If count is 2 or more, return true
+		if(count >= 2)
+			return true;
+		else
+			return false;
+	}
+}
