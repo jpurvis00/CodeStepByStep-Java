@@ -1,0 +1,27 @@
+import acm.program.*;
+
+public class Stutter extends ConsoleProgram {
+	public void run() {
+		//Get user input as string
+		String str = readLine("Input string: ");
+		
+		//Replace each char in string with double chars. ex. hello -> hheelllloo
+		println("New string: " + createStutterString(str));
+	}
+	
+	/* Takes the user string and doubles every letter in the string */
+	private String createStutterString(String str) {
+		//Stores the new string we are creating
+		String newStr = "";
+		//Stores each char in str as we go through our for loop
+		char ch;
+		
+		//Get each char one at a time.  Create new string by doubling the char and adding
+		//it to the new string.
+		for(int i = 0; i < str.length(); i++) {
+			ch = str.charAt(i);
+			newStr = newStr + ch + ch;
+		}
+		return newStr;
+	}
+}
