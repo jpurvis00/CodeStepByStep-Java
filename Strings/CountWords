@@ -1,0 +1,21 @@
+/* This class will count the # of words in a string. */
+
+import acm.program.*;
+import java.util.*;
+
+public class CountWords extends ConsoleProgram {
+	public void run() {
+		String str = readLine("Enter string for word count: ");
+		
+		println("There are " + countWords(str) + " words in your string.");
+	}
+	
+	/* Counts the # of words in a string */
+	private int countWords(String str) {
+		//Create a new string tokenizer object
+		StringTokenizer numbWords = new StringTokenizer(str);
+		
+		//Count how many tokens are in the string and return it.
+		return numbWords.countTokens();
+	}
+}
