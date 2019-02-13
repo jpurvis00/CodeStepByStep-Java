@@ -1,0 +1,81 @@
+/** This class accepts user input in the form of a first and last name seperated by a space.
+ *  It then prints out the name game using that name.
+ */
+
+import acm.program.*;
+import java.util.*;
+
+public class NameGame extends ConsoleProgram {
+	public void run() {
+		String name = readLine("Please input your first and last name seperated by 1 space: ");
+		
+		nameGame(name);
+	}
+	
+	/* This function is passed the user's name seperated by one space.  We then use the 
+	 * StringTokenizer to split it up and pass the first name to the first stanza function
+	 * and the last name to the last stanza function.
+	 */
+	private void nameGame(String name) {
+		//Stores how many tokens/names we have.  Will be used in a for loop.
+		int count = 0;
+		
+		//Get first and last name using string tokenizer
+		StringTokenizer tokenizer = new StringTokenizer(name);
+		count = tokenizer.countTokens();
+		
+		for(int i = 0; i < count; i++) {
+			//Print out first stanza using first name/tokenizer
+			if(i == 0) {
+				name = tokenizer.nextToken();
+				printFirstStanza(name);
+				//print out second stanza using last name/tokenizer
+			} else {
+				name = tokenizer.nextToken();
+				printLastStanza(name);
+			}
+		}
+	}
+	
+	/* Takes the first name and prints out the first stanza of the name game. 
+	 * Calls the replaceFirstChar function to replace the first letter of certain words.
+	 */
+	private void printFirstStanza(String firstName) {
+		println(firstName + ", " + firstName + ", " + "bo-" + replaceFirstChar('B', firstName));
+		println("Banana-fana fo-" + replaceFirstChar('F', firstName));
+		println("Fee-fi-mo-" + replaceFirstChar('M', firstName));
+		println(firstName.toUpperCase() + "!");
+	}
+	
+	/* Takes the last name and prints out the last stanza of the name game. 
+	 * Calls the replaceFirstChar function to replace the first letter of certain words.
+	 */
+	private void printLastStanza(String lastName) {
+		println();
+		println(lastName + ", " + lastName + ", " + "bo-" + replaceFirstChar('B', lastName));
+		println("Banana-fana fo-" + replaceFirstChar('F', lastName));
+		println("Fee-fi-mo-" + replaceFirstChar('M', lastName));
+		println(lastName.toUpperCase() + "!");
+	}
+	
+	/* Replaces the first char of name var with the firstChar that is passed to it.
+	 * ex. firstChar = B name = jeff -> Beff
+	 */
+	private String replaceFirstChar(char firstChar, String name) {
+		//Holds the new string we are creating
+		String newStr = "";
+		char ch;
+		
+		//Create a new string without the first char of passed name var.  
+		//Do this by starting the loop at 1 instead of 0.
+		for(int i = 1; i < name.length(); i++) {
+			ch = name.charAt(i);
+			newStr += ch;
+		}
+		
+		//Now add the char that was passed as firstChar onto the front of the newStr.
+		newStr = firstChar + newStr;
+
+		return newStr;
+	}
+}
