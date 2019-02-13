@@ -1,0 +1,54 @@
+/* This class accepts a string from the user.  It will then swap
+ * every two chars.  If there is an odd # of chars, leave the last one alone.
+ * ex. example -> xemalpe
+ */
+
+import acm.program.*;
+
+public class SwitchPairs extends ConsoleProgram {
+	public void run() {
+		String str = readLine("Input string for the pair switch: ");
+		
+		println("String with pairs switched: " + switchPairs(str));
+	}
+	
+	/* Takes the given string and switches the place of every two chars leaving the last one alone 
+	 * if there is an odd # of chars.
+	 */
+	private String switchPairs(String str) {
+		//Stores the new string we are creating
+		String newStr = "";
+		//Stores the first char to swap
+		char ch = ' ';
+		//Stores the second char to swap
+		char ch2 = ' ';
+		
+		//Swap all char for the entire length of the string
+		for(int i = 0; i < str.length(); i++) {
+			//Using j to get the second char in the string, for some reason i couldn't 
+			//do str.charAt(i+1) so using str.charAt(j)
+			int j = 0;
+
+			//Get the first char to swap
+			ch = str.charAt(i);
+			
+			//Increment j to be the next char in the string
+			j = i + 1;
+
+			//Only assign the char if j is not greater the the string length
+			if(j < str.length()) {
+				ch2 = str.charAt(j);
+			}
+			
+			//If j is less than the string length, swap the two chars
+			if(j < str.length())
+				newStr = newStr + ch2 + ch;
+			//If its equal, do nothing with the last char 
+			else 
+				newStr = newStr + ch;
+			i += 1;
+		}
+		
+		return newStr;
+	}
+}
