@@ -1,0 +1,32 @@
+/** This class accepts user input as a string.  Output will be 
+ * the string reversed.
+ * ex. hellow world -> dlrow wolleh
+ * @author jpurv
+ *
+ */
+
+import acm.program.*;
+
+public class PrintBackwards extends ConsoleProgram {
+	public void run() {
+		String str = readLine("Please enter string to be reversed: ");
+		
+		println("New string: " + reverseString(str));
+	}
+	
+	/** Reverses a string */
+	private String reverseString(String str) {
+		//Stores the new string we are creating
+		String newStr = "";
+		//Stores each char of the passed string
+		char ch;
+		
+		//Start at the end of the string and add each char to the new string
+		for(int i = str.length() - 1; i >= 0; i--) {
+			ch = str.charAt(i);
+			
+			newStr += ch;
+		}
+		return newStr;
+	}
+}
