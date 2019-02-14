@@ -1,0 +1,51 @@
+/* This class accepts a string as input and then removes any chars that appear
+ * consecutively and only displays that char once.
+ * ex. bookkeeeeeper -> bokeper
+ */
+
+import java.util.*;
+
+public class removeDuplicates {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter string: ");
+		String str =  userInput.nextLine();
+		
+		System.out.println("New string: " + removeDups(str));
+	}
+	
+	//Removes any duplicate consecutive chars
+	private static String removeDups(String str) {
+		//Stores new string
+		String newStr = "";
+		//Stores char
+		char ch = ' ';
+		//Stores the next char in the string for comparison
+		char ch2 = ' ';
+				
+		//Go through whole string
+		for(int i = 0; i < str.length(); i++) {
+			int count = 0;
+			
+			//Get each char in string one at a time
+			ch = str.charAt(i);
+			
+			//Get the next char for comparison as long as i+1 is not > than the length of the str
+			if(i + 1 < str.length())
+				ch2 = str.charAt(i+1);
+			
+			//If both chars are equal and we are not at the end of the string, mark that they are 
+			//duplicates.  We don't do this if we are at the end of the string so that we capture the last char.
+			if(ch == ch2 && i + 1 < str.length())
+				count++;
+			
+			//If consective chars have not been identified, add the char to the new string.
+			if(count == 0)
+				newStr += ch;
+		}
+		return newStr;
+	}
+}
