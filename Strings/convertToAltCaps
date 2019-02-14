@@ -1,0 +1,49 @@
+/* This class asks the user for a string.  It then capitalizes every other letter starting
+ * with the first letter as lower case.
+ * ex. Hello -> hElLo
+ */
+
+import java.util.*;
+
+public class convertToAltCaps {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter string: ");
+		String str = userInput.nextLine();
+		
+		System.out.println("New string: " + convertString(str));
+	}
+	
+	/* Takes a string and converts every other letter to upper case.  First
+	 * letter always starts as lower case.
+	 */
+	private static String convertString(String str) {
+		String newStr = "";
+		char ch = ' ';
+		
+		//Go through every letter of the string
+		for(int i = 0; i < str.length(); i++) {
+			//Take out one letter at a time
+			ch = str.charAt(i);
+			
+			//Convert every other char to lower case starting with the first one
+			if(i % 2 == 0) {
+				if(Character.isUpperCase(ch) && ch != ' ')
+					ch = Character.toLowerCase(ch);
+				
+				newStr += ch;
+			}
+			//Convert to upper case
+			else {
+				if(Character.isLowerCase(ch) && ch != ' ')
+					ch = Character.toUpperCase(ch);
+				
+				newStr += ch;
+			}
+		}
+		return newStr;
+	}
+}
