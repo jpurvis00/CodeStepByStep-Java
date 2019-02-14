@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class dnaErrors {
+
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter dna string 1: ");
+		dna1 = userInput.nextLine();
+		
+		System.out.println("Enter dna string 2: ");
+		dna2 = userInput.nextLine();
+		
+		checkForErrors();
+		System.out.println(unmatchedErrors);
+		
+	}
+	
+	private static void checkForErrors() {
+		strandsDifferentSizes();
+		strandContainsDashes();
+		//pointMutation();
+	}
+	
+	private static void strandsDifferentSizes() {
+		if(dna1.length() != dna2.length())
+			unmatchedErrors++;
+	}
+	
+	private static void strandContainsDashes() {
+		char ch = ' ';
+		char ch2 = ' ';
+		
+		for(int i = 0; i < dna1.length(); i++) {
+			ch = dna1.charAt(i);
+			ch2 = dna2.charAt(i);
+			
+			if(ch == '-' || ch2 == '-')
+				unmatchedErrors++;
+		}
+	}
+	
+	/** Private instance variables */
+	private static int unmatchedErrors = 0;
+	private static int pointMutationErrors = 0;
+	private static String dna1;
+	private static String dna2;
+}
