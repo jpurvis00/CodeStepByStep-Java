@@ -1,0 +1,54 @@
+/* This class asks for a string.
+ * It then checks to see if all chars in the string are vowels and returns
+ * true if it is and false if its not.
+ */
+
+import acm.program.*;
+
+public class IsAllVowels extends ConsoleProgram {
+	public void run() {
+		String str = "";
+		
+		while(!str.equals("quit")) {
+			str = readLine("Please enter a string: ");
+		
+			if(checkString(str))
+				println("String is all vowels!");
+			else
+				println("String is not all vowels :(");
+		}
+	}
+	
+	/* Runs through every char in the string and passes that char to the 
+	 * isLetterVowel method to see if its a vowel.
+	 */
+	private boolean checkString(String str) {
+		char ch = ' ';
+		
+		for(int i = 0; i < str.length(); i++) {
+			ch = str.charAt(i);
+			if(!isLetterVowel(ch))
+				return false;
+		}
+		return true;
+	}
+	
+	/* Checks to see if the char is a vowel */
+	private boolean isLetterVowel(char ch) {
+		
+		if(ch == 'a' || ch == 'A') 
+			return true;
+		else if (ch == 'e' || ch == 'E')
+			return true;
+		else if (ch == 'i' || ch == 'I')
+			return true;
+		else if(ch == 'o' || ch == 'O')
+			return true;
+		else if(ch == 'u' || ch == 'U')
+			return true;
+		else if(ch == ' ')
+			return true;
+		else
+			return false;
+	}
+}
