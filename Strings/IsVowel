@@ -9,7 +9,7 @@ public class IsVowel extends ConsoleProgram {
 	public void run() {
 		String str = "";
 		
-		while(str != "quit") {
+		while(!str.equals("quit")) {
 			str = readLine("Please enter char: ");
 		
 			if(isLetterVowel(str))
