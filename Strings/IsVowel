@@ -1,0 +1,38 @@
+/* This class asks for a char and stores it in a string.
+ * It then checks to see if the char is a vowel and returns
+ * true if it is and false if its not.
+ */
+
+import acm.program.*;
+
+public class IsVowel extends ConsoleProgram {
+	public void run() {
+		String str = "";
+		
+		while(str != "quit") {
+			str = readLine("Please enter char: ");
+		
+			if(isLetterVowel(str))
+				println("Char is a vowel!");
+			else
+				println("Char is not a vowel :(");
+		}
+	}
+	
+	/* Checks to see if the char is a vowel */
+	private boolean isLetterVowel(String str) {
+		
+		if(str.charAt(0) == 'a' || str.charAt(0) == 'A') 
+			return true;
+		else if (str.charAt(0) == 'e' || str.charAt(0) == 'E')
+			return true;
+		else if (str.charAt(0) == 'i' || str.charAt(0) == 'I')
+			return true;
+		else if(str.charAt(0) == 'o' || str.charAt(0) == 'O')
+			return true;
+		else if(str.charAt(0) == 'u' || str.charAt(0) == 'U')
+			return true;
+		else
+			return false;
+	}
+}
