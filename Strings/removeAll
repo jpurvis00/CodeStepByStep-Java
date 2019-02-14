@@ -1,0 +1,39 @@
+/* This class will remove all occurrrences of a letter from a string.
+ * ex. hello, l -> heo
+ */
+
+import java.util.*;
+
+public class removeAll {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter string: ");
+		String str = userInput.nextLine();
+		
+		System.out.println("Enter char to remove from string: ");
+		String key = userInput.nextLine();
+		
+		System.out.println("New String: " + removeChar(str, key));
+	}
+	
+	/* Removes all occurrences of a letter from a string.
+	 * Pre: string and letter are passed to method
+	 * Post: all letters that were passed to method have been removed from the passed string
+	 */
+	private static String removeChar(String str, String key) {
+		String newStr = "";
+		char ch = ' ';
+		
+		for(int i = 0; i < str.length(); i++) {
+			//Look at each char of the string(str)
+			ch = str.charAt(i);
+			//See if the char from the string matches the char from the key string
+			if(ch != key.charAt(0))
+				newStr += ch;
+		}
+		return newStr;
+	}
+}
