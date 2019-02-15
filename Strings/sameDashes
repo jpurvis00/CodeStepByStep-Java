@@ -1,0 +1,77 @@
+/* This class accepts two strings and checks to see if they have dashes in the same places.  It should return
+ * true if they do and false if they don't.
+ */
+
+import java.util.*;
+
+public class sameDashes {
+
+	//Create scanner object
+	//private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Strings dashes match up: " + checkSameDashes("hi--there-youjjj-.", "12--(134)-7539"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("-15-389", "-xy-zzy"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("criminal-plan", "(206)555-1384"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("abc", "9.8"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("1st-has-more characters", "2nd-has-less"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("1st-has-less", "2nd-has-more chars"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("1st-has-more-chars", "2nds-has-less"));
+		System.out.println("Strings dashes match up: " + checkSameDashes("1st-has-less", "2nd-has-more-characters"));
+		
+	}
+	
+	/* Checks to see if two strings share dashes in exactly the same spots
+	 * Pre: string1 and string 2
+	 * Post: Return true if dashes are in same spots, false if not
+	 */
+	private static boolean checkSameDashes(String str1, String str2) {
+		int shortestStringLength = 0;
+		int i = 0;
+		char ch = ' ';
+		char ch2 = ' ';
+		boolean doesMatch = false;
+		
+		//Find the shortest string so we only go through the for loop that many times
+		//avoiding an out of bounds i.
+		if(str1.length() < str2.length())
+			shortestStringLength = str1.length();
+		else
+			shortestStringLength = str2.length();
+		
+		for(i = 0; i < shortestStringLength; i++) {
+			ch = str1.charAt(i);
+			ch2 = str2.charAt(i);
+			
+			//Check to see if either char from either string is a dash
+			if(ch == '-' || ch2 == '-') {
+				//If one char is a dash, is the other char from the other string a dash?
+				if(ch == ch2) 
+					doesMatch = true;
+				else
+					doesMatch = false;
+			}
+		}
+		
+		//Since the first for loop only executed for the shortest string length, we
+		//must now check the rest of the longest string if it exists for any dashes.
+		//If they exist then we return false.
+		if(str1.length() > str2.length()) {
+			for(i = str2.length(); i < str1.length(); i++) {
+				ch = str1.charAt(i);
+				
+				if(ch == '-')
+					doesMatch = false;
+			}
+		} else {
+			for(i = str1.length(); i < str2.length(); i++) {
+				ch = str2.charAt(i);
+				
+				if(ch == '-')
+					doesMatch = false;
+			}
+		}
+		
+		return doesMatch;
+	}
+}
