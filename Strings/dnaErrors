@@ -13,13 +13,14 @@ public class dnaErrors {
 		
 		checkForErrors();
 		System.out.println(unmatchedErrors);
+		System.out.println(pointMutationErrors);
 		
 	}
 	
 	private static void checkForErrors() {
 		strandsDifferentSizes();
 		strandContainsDashes();
-		//pointMutation();
+		pointMutation();
 	}
 	
 	private static void strandsDifferentSizes() {
@@ -40,9 +41,89 @@ public class dnaErrors {
 		}
 	}
 	
+	private static void pointMutation() {
+		char ch = ' ';
+		char ch2 = ' ';
+		
+		if(dna1.length() < dna2.length())
+			shortestString = dna1;
+		else
+			shortestString = dna2;
+		
+		for(int i = 0; i < shortestString.length(); i++) {
+			if(i < dna1.length())
+				ch = dna1.charAt(i);
+			
+			if(i < dna2.length())
+				ch2 = dna2.charAt(i);
+		
+			switch(ch) {
+				case 'a':
+					if(ch2 == 't' || ch2 == 'T')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'A':
+					if(ch2 == 't' || ch2 == 'T')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 't':
+					if(ch2 == 'a' || ch2 == 'A')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'T':
+					if(ch2 == 'a' || ch2 == 'A')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'c':
+					if(ch2 == 'g' || ch2 == 'G')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'C':
+					if(ch2 == 'g' || ch2 == 'G')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'g':
+					if(ch2 == 'c' || ch2 == 'C')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'G':
+					if(ch2 == 'c' || ch2 == 'C')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				default:
+					pointMutationErrors++;
+			}
+		}
+	}
+	
 	/** Private instance variables */
 	private static int unmatchedErrors = 0;
 	private static int pointMutationErrors = 0;
 	private static String dna1;
 	private static String dna2;
+	private static String shortestString;
 }
