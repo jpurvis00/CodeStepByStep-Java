@@ -11,33 +11,154 @@ public class dnaErrors {
 		System.out.println("Enter dna string 2: ");
 		dna2 = userInput.nextLine();
 		
-		checkForErrors();
-		System.out.println(unmatchedErrors);
-		
+		checkForErrors();		
 	}
 	
+	/* Calls all methods to check for dna errors. */
 	private static void checkForErrors() {
 		strandsDifferentSizes();
 		strandContainsDashes();
-		//pointMutation();
+		pointMutation();
+		printErrors();
 	}
 	
+	/* Checks to see if the lengths of the 2 dna strands are the same size or not.
+	 * Pre: Two strings for dna1 and dna2
+	 * Post: If both strings are not of same size, calculate the size difference by subtracting.
+	 * 		 Since we can't guarantee the first string will always be longer, we find the absolute
+	 * 		 value of that difference so it will always be positive.
+	 */
 	private static void strandsDifferentSizes() {
-		if(dna1.length() != dna2.length())
-			unmatchedErrors++;
+		if(dna1.length() != dna2.length()) {
+			lengthDiff = dna1.length() - dna2.length();
+			//Find absolute value since we can't guarantee the answer will always be positive.
+			unmatchedErrors = Math.abs(lengthDiff);
+		}
 	}
 	
+	/* Finds any chars that are dashes and counts those as unmatched errors.
+	 * Pre: Two strings for dna1 and dna2
+	 * Post: unmatchedErrors has been incremented by 1 every time a - is found
+	 * 		 in either string.
+	 */
 	private static void strandContainsDashes() {
 		char ch = ' ';
-		char ch2 = ' ';
 		
 		for(int i = 0; i < dna1.length(); i++) {
 			ch = dna1.charAt(i);
-			ch2 = dna2.charAt(i);
 			
-			if(ch == '-' || ch2 == '-')
+			if(ch == '-')
 				unmatchedErrors++;
 		}
+		
+		for(int i = 0; i < dna2.length(); i++) {
+			ch = dna2.charAt(i);
+			
+			if(ch == '-')
+				unmatchedErrors++;
+		}
+	}
+	
+	/* This methods checks to see if the correct nucleotides match up.  The only allowed combinations
+	 * are A -> T, T -> A, C -> G, G -> C.  It will ignore the dashes as we've already found those 
+	 * in a different function.  
+	 * Pre: Two strings for dna1 and dna2
+	 * Post: pointMutationErrors will be incremented by 1 every time we find a char sequence that does
+	 * 		 not match the above pairings.  
+	 */
+	private static void pointMutation() {
+		char ch = ' ';
+		char ch2 = ' ';
+		
+		//Find out which string is the shortest.  We only want to go through the for loop that many
+		//times so that i doesn't go out of bounds.  If one string is longer than the other, we don't
+		//care about the extra nucleotides bc those have already been accounted for in another method.
+		if(dna1.length() < dna2.length())
+			shortestString = dna1;
+		else
+			shortestString = dna2;
+		
+		for(int i = 0; i < shortestString.length(); i++) {
+			ch = dna1.charAt(i);
+			ch2 = dna2.charAt(i);
+
+			/*Checks to see if the correct chars are matched up.  If they are, break and do nothing.
+			 * If they aren't, increment pointMutationErrors by 1.  Also had to add in the check for
+			 * ch2 == '-'.  Without this pointMutationErrors was being incremented when there was a 
+			 * '-' in dna2 since our case '-' only got executed when ch was '-'.
+			 */
+			switch(ch) {
+				case 'a':
+					if(ch2 == 't' || ch2 == 'T' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'A':
+					if(ch2 == 't' || ch2 == 'T' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 't':
+					if(ch2 == 'a' || ch2 == 'A' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'T':
+					if(ch2 == 'a' || ch2 == 'A' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'c':
+					if(ch2 == 'g' || ch2 == 'G' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'C':
+					if(ch2 == 'g' || ch2 == 'G' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'g':
+					if(ch2 == 'c' || ch2 == 'C' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case 'G':
+					if(ch2 == 'c' || ch2 == 'C' || ch2 == '-')
+						break;
+					else {
+						pointMutationErrors++;
+						break;
+					}
+				case '-':
+					break;
+				default:
+					if(ch2 == '-')
+						break;
+					else
+						pointMutationErrors++;
+			}
+		}
+	}
+	
+	/* This method prints out the messages with how many errors were found in the dna strands. */
+	private static void printErrors() {
+		System.out.println("You have " + unmatchedErrors + " unmatched nucleotides.");
+		System.out.println("You have " + (pointMutationErrors * 2) + " point mutations.");
 	}
 	
 	/** Private instance variables */
@@ -45,4 +166,7 @@ public class dnaErrors {
 	private static int pointMutationErrors = 0;
 	private static String dna1;
 	private static String dna2;
+	private static String shortestString;
+	private static int lengthDiff;
 }
+
