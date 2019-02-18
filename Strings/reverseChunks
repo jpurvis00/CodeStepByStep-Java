@@ -1,0 +1,47 @@
+/* This classe takes two inputs.  A string and a key int.  It then reverses every key int chars
+ * and does this again to the next key int chars.  If the strings length is not an exact multiple
+ * of k, the end of the string should be kept in the same order.
+ * ex. MehranSahami -> heMnarhaSima		MartyStepp -> traMetSypp
+ */
+
+public class reverseChunks {
+
+	public static void main(String []args) {
+		System.out.println("MehranSahami reversed is: " + reverseChunks1("MehranSahamiab", 3));
+		System.out.println("MartyStepp reversed is: " + reverseChunks1("MartyStepp", 4));
+	}
+	
+	/* This method reverses chars in a string.  It reverses them in multiples of k. */
+	private static String reverseChunks1(String s, int k) {
+		String newStr = "";
+		//Stores how many multiples of k there are in the string.
+		int numbChunks = 0;
+		//Stores how many chars we have left over after multiples of k
+		int leftOverChars = 0;
+		
+		numbChunks = s.length() / k;
+		leftOverChars = s.length() % k;
+		
+		/* We have broken the loop up into multiples of k.  ex. If k = 3 and the s.length() is 12, we will
+		 * work on 4 chunks of 3 chars.  This is the first loop.
+		 * 
+		 *  The second for loop will reverse k chars.  We have started i and j at 1 so the that math works
+		 *  out and we aren't multiplying anything by 0.  
+		 */
+		for(int i = 1; i <= numbChunks; i++) {
+			for(int j = 1; j < k + 1; j++) {
+				newStr += s.charAt(k * i - j);
+			}
+		}
+		
+		/* If there are left over chars that don't fit in the k multiples, add them to the end of the new string
+		 * without changing their order.
+		 */
+		if(leftOverChars != 0) {
+			for(int i = s.length() - leftOverChars; i < s.length(); i++) {
+				newStr += s.charAt(i);
+			}
+		}
+		return newStr;
+	}
+}
