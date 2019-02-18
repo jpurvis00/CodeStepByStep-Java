@@ -1,0 +1,42 @@
+/* This class takes user input as a string.  It then makes every even char lowercase
+ * and every odd char uppercase.
+ */
+
+import java.util.*;
+
+public class crazyCaps {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		String str = "";
+		
+		while(!str.equals("exit")) {
+			System.out.println("Enter string for crazy caps: ");
+			str = userInput.nextLine();
+			
+			System.out.println("New string: " + doCaps(str));
+		}
+		
+	}
+	
+	/* Takes a string and lowercases all even chars and uppercases all odd chars. */
+	private static String doCaps(String str) {
+		String newStr = "";
+		char ch = ' ';
+		
+		for(int i = 0; i < str.length(); i++) {
+			//If even, make char lowercase
+			if(i % 2 == 0) {
+				ch = str.charAt(i);
+				newStr += Character.toLowerCase(ch);
+			} else { //If odd, make char uppercase
+				ch = str.charAt(i);
+				newStr += Character.toUpperCase(ch);
+			}
+		}
+		
+		return newStr;
+	}
+}
