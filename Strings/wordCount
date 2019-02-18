@@ -1,0 +1,41 @@
+/* This class sends a string to a method and returns how many words are in the string.
+ * Constraints: Do not use a Scanner to help you solve this problem. Do not use any data 
+ * structures such as arrays to help you solve this problem. Do not use the String method 
+ * split on this problem. But you can declare as many simple variables like int, char, etc. 
+ * as you like. Declaring String variables is also fine.
+ */
+
+import java.util.*;
+
+public class wordCount {
+
+	public static void main(String []args) {
+		System.out.println("There are " + howManyWords("hello, how are you?") + " words in this string.");
+		System.out.println("There are " + howManyWords("programming is fun") + " words in this string.");
+		System.out.println("There are " + howManyWords("programming    is   fun") + " words in this string.");
+		System.out.println("There are " + howManyWords("hello") + " words in this string.");
+	}
+	
+	/* Checks a string for spaces and counts how many words are in the string
+	 * Pre: passes in a string
+	 * Post: returns how many words are in the string as an int
+	 */
+	private static int howManyWords(String str) {
+		int wordCount = 0;
+		char ch = ' ';
+		
+		//check each char in the string
+		for(int i = 0; i < str.length(); i++) {
+			ch = str.charAt(i);
+			
+			//check the char after ' ' to make sure it's not another ' ', we don't want to count that twice
+			if(ch == ' ' && str.charAt(i + 1) != ' ')
+				wordCount++;
+		}
+		
+		//add 1 more to wordCount so that the last word is counted also
+		wordCount++;
+		
+		return wordCount;
+	}
+}
