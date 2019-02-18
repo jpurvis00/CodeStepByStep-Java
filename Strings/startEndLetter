@@ -1,0 +1,55 @@
+/* This class will prompt the user for a single char.  It will then continuously prompt
+ * the user for words until two consecutive words have been entered that start and end
+ * with the char specified in the beginning.  Class should be case insensitive.
+ * ex. "s" -> will not stop until "scores" "sos" are entered.  
+ */
+
+import java.util.*;
+
+public class startEndLetter {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		String finalWord = "";
+		
+		System.out.println("Enter char: ");
+		String endChar = userInput.nextLine();
+		System.out.println("Looking for two \"" + endChar + "\" words in a row.");
+		
+		while(wordCount != 2) {
+			finalWord = findEndLetter(endChar);	
+		}
+		
+		System.out.println("\"" + endChar + "\" is for \"" + finalWord + "\"");
+	}
+	
+	/* Checks to see if the first char is equal to the last char in the word.  If the word is 1 char
+	 * and matches the key char, this counts as 1 correct match.
+	 * Pre: a single key char is passed to this method
+	 * Post: returns the last word that had the first char and last char match the key char and 
+	 * 		 increments wordCount by 1.  If nothing matches, set wordCount back to 0.
+	 */
+	private static String findEndLetter(String endChar) {
+		
+		System.out.println("Type a word: ");
+		String word = userInput.nextLine();
+		
+		//convert word to all lowercase so it is case insensitive.
+		word = word.toLowerCase();
+		
+		if(word.length() == 1 && word.charAt(0) == endChar.charAt(0))
+			wordCount++;
+		else if (word.charAt(0) == endChar.charAt(0) && word.charAt(word.length() - 1) == endChar.charAt(0)) {
+				wordCount++;
+		} else { //If nothing matches we must reset to 0 so that no unmatching words can come between the matching words.
+			wordCount = 0;
+		}
+		
+		return word;
+	}
+	
+	/** Private instance variables */
+	private static int wordCount = 0;
+}
