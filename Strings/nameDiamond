@@ -1,0 +1,51 @@
+/* This class take a string from the user.  It then creates a diamond out of the chars of the string.
+ * ex. see
+ * s
+ * se
+ * see
+ *  ee
+ *   e
+ */
+
+import java.util.*;
+
+public class nameDiamond {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter string for diamond: ");
+		String str = userInput.nextLine();
+		
+		createDiamond(str);
+	}
+	
+	//Takes the string and creates a diamond out of the chars.  
+	private static void createDiamond(String str) {
+		char ch = ' ';
+		
+		//Create the upper half of the diamond
+		for(int i = 0; i < str.length(); i++) {
+			for(int j = 0; j < i + 1; j++) {
+				ch = str.charAt(j);
+				System.out.print(ch);
+			}
+			System.out.println();
+		}
+		
+		//Create the lower half of the diamond
+		for(int i = 0; i < str.length() - 1; i++) {
+			//Print spaces.
+			for(int k = 0; k < (str.length() + 1) - (str.length() - i); k++) {
+				System.out.print(" ");
+			}
+			
+			for(int j = 0; j < str.length() - (i + 1); j++) {
+				ch = str.charAt(j + (i + 1));
+				System.out.print(ch);
+			}
+			System.out.println();
+		}
+	}
+}
