@@ -1,0 +1,43 @@
+/* This class accepts a string from the user.  It then swaps every other char.
+ * If there is a char left, just add it to the end.
+ * ex. example -> xemalpe
+ * 
+ */
+
+import java.util.*;
+
+public class swapPairs {
+
+	//Create scanner object
+	private static final Scanner userInput = new Scanner(System.in);
+	
+	public static void main(String []args) {
+		System.out.println("Enter string: ");
+		String str = userInput.nextLine();
+		
+		System.out.println("New String: " + swapPairs1(str));
+	}
+	
+	/* Swaps every other char and adds the last char at the end if there is nothing to swap it with */
+	private static String swapPairs1(String str) {
+		String newStr = "";
+		int iterations = 0;
+		
+		//We only need to go through the string length by half since we are performing our
+		//operations on two chars at a time.  
+		for(int i = 0; i < str.length() / 2; i++) {
+			//Swap the 2nd char with the 1st one for each 2 char chunk
+			for(int j = i * 2 + 1; j >= i * 2; j--) {
+				newStr += str.charAt(j);
+				iterations++;
+			}
+		}
+		
+		//If we haven't swapped every char then iterations won't equal str.length(). Add the last char on to the end.
+		if(iterations != str.length()) {
+			newStr += str.charAt(str.length() - 1);
+		}
+		
+		return newStr;
+	}
+}
