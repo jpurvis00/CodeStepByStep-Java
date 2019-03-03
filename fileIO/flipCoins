@@ -1,0 +1,67 @@
+/* Read a series of coin flips from a file.  One line represents a series of 
+ * flips.  Print out how many heads per series.  Calculate the percentage of heads
+ * per line and print out that there where more heads if heads was flipped more
+ * than 50% of the time.
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class flipCoins {
+	
+	public static void main(String []args) {
+		String file = "flipCoins.txt";
+	
+		//try catch loop for opening a file
+		try {
+			//open file
+			BufferedReader rd = new BufferedReader(new FileReader(file));
+			
+			//while there is still data on a line
+			while(true) {
+				String line = rd.readLine();
+				
+				//leave loop if we have reached last line of the file
+				if(line == null) break;
+				
+				calcPerc(line);
+			}
+			rd.close();
+		} catch (IOException ex) {
+			System.out.println("Bad File");
+		}
+	}
+	
+	/* Finds how many times a heads was flipped.  Calculates the percentage of
+	 * times a heads was flipped and prints out there were more heads if heads
+	 * was flipped 50% or more.  This is done by creating an tokenizer for the 
+	 * string and then assigning each value into an arrayList since we don't know
+	 * how many values there will be in each line.
+	 * Pre:  passes in a string from a file which is one line
+	 * Post: calculates percentage of heads, how many heads were flipped and 
+	 *       if it was 50% or more.  All results are printed.
+	 */
+	private static void calcPerc(String str) {
+		StringTokenizer tk = new StringTokenizer(str);
+		ArrayList<String> headsOrTails = new ArrayList<String>();
+		int percentage = 0;
+		double heads = 0;
+		
+		while(tk.hasMoreTokens()) {
+			headsOrTails.add(tk.nextToken());
+		}		
+		
+		for(int i = 0; i < headsOrTails.size(); i++) {
+			if(headsOrTails.get(i).toLowerCase().equals("h"))
+				heads++;
+		}
+		
+		percentage = (int)((heads / headsOrTails.size()) * 100);
+		
+		if(percentage >= 50) {
+			System.out.println((int)heads + " heads (" + percentage + "%)\nThere were more heads!\n");
+		} else {
+			System.out.println((int)heads + " heads (" + percentage + "%)\n");
+		}
+	}
+}
