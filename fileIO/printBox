@@ -1,0 +1,104 @@
+/* Call a method passing it 2 params(filename, width).  Open the file and read it line by line.  
+ * Output the text surrounded by # width wide.  If the line is longer than the width that was
+ * specified, truncate the line.  Convert each line to title case as well.  
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class printBox {
+
+	public static void main(String []args) {
+		String fileName = "";
+		int width = 0;
+		Scanner finput = new Scanner(System.in);
+		System.out.print("File name: ");
+		fileName = finput.nextLine();
+		System.out.print("Width: ");
+		width = finput.nextInt();
+		finput.close();
+		
+		printBox1(fileName, width);
+	}
+	
+	/* Tries to open a user given file for reading and if successful, 
+	 * reads each line.
+	 * Pre:  user defined file name and width is passed in 
+	 * Post: read each line and call the printLine method to deal with that line of data
+	 */
+	private static void printBox1(String fname, int width) {
+		try {
+			BufferedReader rd = new BufferedReader(new FileReader(fname));
+			String line = "";
+			
+			//print 1st line of #'s
+			for(int i = 0; i < width; i++) {
+				System.out.print("#");
+			}
+			System.out.print("\n");
+			
+			//Read each line of the file
+			while(true) {
+				line = rd.readLine();
+				
+				if(line == null) break;
+				printLine(line, width);
+			}
+			
+			//After all lines have been printed, print last line of #'s
+			for(int i = 0; i < width; i++) {
+				System.out.print("#");
+			}
+			
+			rd.close();
+		}
+		catch (IOException ex) {
+			System.out.println("Bad file name!");
+		}
+	}
+	
+	/* Prints out one line of text in a specific format.  It also caps the 
+	 * first char of the line and makes sure the rest or lower case.
+	 * Pre:  1 line of text and a width are passed in
+	 * Post: 1 line has been printed in specified format
+	 */
+	private static void printLine(String str, int w) {
+		/*If the specified width is smaller than the line, cut the line down to that size*/
+		if(str.length() > w)
+			str = str.substring(0, w - 1);
+		
+		//Create an array out of the string storing each char separately
+		char[] strArr = new char[str.length()];
+		strArr = str.toCharArray();
+		
+		//Go through the entire array of chars
+		for(int i = 0; i < strArr.length; i++) {
+			//If its the 1st char, print out a # followed by the first char and capitalize it
+			if(i == 0)
+				System.out.print("#" + Character.toUpperCase(strArr[i]));
+			//If its the last char in the array, convert it to lowercase, figure out how many spaces are 
+			//needed to get the right edge of the box to line up and print spaces until the end.  Once
+			//there, print the last #.
+			else if(i == (strArr.length - 1)) {
+				System.out.print(Character.toLowerCase(strArr[i]));
+				for(int k = 0; k < w - strArr.length - 2; k++) {
+					System.out.print(" ");
+				}
+				System.out.print("#");
+			}
+			//Print out the middle of the array in lowercase
+			else 
+				System.out.print(Character.toLowerCase(strArr[i]));
+		}
+		
+		//If the passed in string is empty, print a leading and trailing # with spaces in between
+		if(str.length() == 0) {
+			System.out.print("#");
+			for(int j = 0; j < w - 2; j++) {
+				System.out.print(" ");
+			}
+			System.out.print("#");
+		}	
+		System.out.print("\n");
+	}
+}
