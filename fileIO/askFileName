@@ -1,0 +1,42 @@
+/* Prompt the user for a file name.  If the file is not found, prompt the user again.
+ * If the file is found, return it as a string. 
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class askFileName {
+	public static void main(String []args) {
+		String fileFound = "";
+		
+		fileFound = getFile();
+		
+	}
+	
+	/* Checks to see if a file exists or not
+	 * Pre:  no pre conditions
+	 * Post: if a file is not found, prompt the user for a file name until one is found
+	 * 	   	 that exists.  Return the file name as a string.
+	 */
+	private static String getFile() {
+		String file = "";
+				
+		while(true) {
+			try {
+				Scanner input = new Scanner(System.in);
+				
+				System.out.print("Type a file name: ");
+				file = input.nextLine();
+				
+				BufferedReader rd = new BufferedReader(new FileReader(file));
+								
+				input.close();
+				rd.close();
+				
+				return file;
+			} catch (IOException ex) {
+				System.out.println("File name not found!");
+			}
+		}
+	}
+}
