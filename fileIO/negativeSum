@@ -1,0 +1,86 @@
+/* This class will read integers from a file.  It will then add them together
+ * and determine if the sum ever reaches a neg #.  If it does, return true
+ * and the value and step that it reaches neg on.  It is assumed that all input
+ * in the file is in the form of ints.
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class negativeSum {
+
+	public static void main(String []args) {
+		//prompt user for filename
+		Scanner input = new Scanner(System.in);
+		System.out.print("File name? ");
+		String fname = input.nextLine();
+		input.close();
+		
+		//open:read file
+		openFile(fname);
+	}
+	
+	/* Opens a file and reads the lines of the user given file.
+	 * Pre:  File name is passed to method
+	 * Post: File has been opened and each line has been read
+	 */
+	private static void openFile(String fname) {
+		boolean negNumb = false;
+		
+		try {
+			BufferedReader rd = new BufferedReader(new FileReader(fname));
+			String line = "";
+			
+			while(true) {
+				line = rd.readLine();
+				if(line == null) break;
+				
+				//determine if sum ever hits negative, return true or false
+				negNumb = calcSum(line);
+				
+				//print results
+				printResults(negNumb);
+			}
+			
+			rd.close();
+		}
+		catch(IOException ex) {
+			System.out.println("Bad file name!");
+		}
+	}
+	
+	/* Determine if the sum of the ints ever reaches negative. If so, 
+	 * return true and the sum and the step it does it on.
+	 * Pre:  1 line from the open file is passed to this method
+	 * Post: the sum has been calculated and true for a neg # or false for a pos # has been returned
+	 */
+	private static boolean calcSum(String str) {
+		StringTokenizer stok = new StringTokenizer(str);
+		sum = 0;
+		step = 0;
+		
+		//go through each int and add them together. stop if the sum ever goes neg and return true
+		while(stok.hasMoreTokens()) {
+			sum += Integer.valueOf(stok.nextToken());
+			step++;
+			if(sum < 0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/* Prints the results based on if there was a negative sum or not.
+	 * Pre:  boolean value is passed to the method
+	 * Post: results are printed
+	 */
+	private static void printResults(boolean negNumb) {
+		if(negNumb == false)
+			System.out.println("no negative sum");
+		else
+			System.out.println(sum + " after " + step + " steps");
+	}
+	
+	/** private instance variables */
+	private static int sum = 0, step = 0;
+}
