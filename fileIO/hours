@@ -1,0 +1,79 @@
+/* This class prompts the user for a filename.  It then opens it and reads it line
+ * by line.  Each line is for one employe. Format is emp id, name, hours per day.
+ * It then calculates the # of hours worked in the week and the ave/day.
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class hours {
+
+	public static void main(String []args) {
+		//prompt user for file
+		Scanner input = new Scanner(System.in);
+		System.out.print("Input file: ");
+		String fname = input.nextLine();
+		input.close();
+		
+		//open:read file
+		openFile(fname);
+	}
+	
+	/* Opens a user specified file if file exists.
+	 * Pre:  User specified file is passed to method
+	 * Post: File has been opened and each line has been read
+	 */
+	private static void openFile(String fname) {
+		try {
+			BufferedReader rd = new BufferedReader(new FileReader(fname));
+			String line = "";
+			
+			while(true) {
+				line = rd.readLine();
+				if(line == null) break;
+				
+				//calculate total and average hours worked
+				calcTotalAve(line);
+			}
+			
+			rd.close();
+		}
+		catch(IOException ex) {
+			System.out.println("Bad file name!");
+		}
+	}
+	
+	/* Takes 1 line of the file and calcs the total # of hours worked and the average/day.
+	 * Pre:  1 line of the file is passed to method at a time.
+	 * Post: total # of hours and ave/day has been calculated for that specific employee
+	 */
+	private static void calcTotalAve(String str) {
+		StringTokenizer stok = new StringTokenizer(str);
+		double totHours = 0.0;
+		double aveHours = 0.0;
+		double daysWorked = stok.countTokens() - 2;
+		int empId = Integer.parseInt(stok.nextToken());
+		String empName = stok.nextToken();
+				
+		while(stok.hasMoreTokens()) {
+			//convert token(which is a string) to a double
+			totHours += Double.parseDouble(stok.nextToken());
+		}
+		aveHours = totHours / daysWorked;
+		
+		//print results
+		printResults(empId, empName, totHours, aveHours);
+	}
+	
+	/* Prints the results.  Will print the employee name, id, tot hours worked for the week, 
+	 * and the ave hours worked per day.
+	 * Pre:  Total hours worked for the week and the ave hours worked per day are passed into the method
+	 * Post: Results are printed to the console
+	 */
+	private static void printResults(int id, String name, double tHours, double aHours) {
+		//Assignment says to use the printf statement to format the display.  First time doing this so
+		//both statements are here.
+		//System.out.println(name + " (ID#" + id + ") worked " + tHours + " hours (" + aHours + "/day)");
+		System.out.printf("%s (ID#%d) worked %.1f hours (%.1f/day)\n", name, id, tHours, aHours);
+	}
+}
