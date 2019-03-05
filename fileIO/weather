@@ -1,0 +1,100 @@
+/*
+ * 
+ */
+
+import java.util.*;
+import java.io.*;
+
+public class weather {
+
+	public static void main(String []args) {
+		double[] tempChanges;
+		//prompt user for filename
+		Scanner input = new Scanner(System.in);
+		System.out.print("Input file? ");
+		String fname = input.nextLine();
+		input.close();
+		
+		//open/read file
+		openFile(fname);
+	
+		//calculate daily temp differences
+		tempChanges = calcDailyTemps();
+		
+		//print results
+		printResults(tempChanges);
+	}
+	
+	/* Attempst to open a user defined file and read the contents.
+	 * Pre:  Filename is passed into the method
+	 * Post: All contents of the file have been read
+	 */
+	private static void openFile(String fname) {
+		try {
+			BufferedReader rd = new BufferedReader(new FileReader(fname));
+			String line = "";
+			
+			//read each line in the file and call the isNumber method passing 1 line at a time
+			while(true) {
+				line = rd.readLine();
+				if(line == null) break;
+				
+				isNumber(line);
+			}
+			rd.close();
+		} 
+		catch(IOException ex) {
+			System.out.println("Bad file name.");
+		}
+	}
+	
+	/* Breaks the string up into tokens and then checks to see if it is a number.
+	 * If it's a #, store it in an arrayList.
+	 * Pre:  1 line from the specified file is passed in
+	 * Post: line has been broken into tokens and stored in an array if it's a #
+	 */
+	private static void isNumber(String line) {
+		StringTokenizer stok = new StringTokenizer(line);
+				
+		while(stok.hasMoreTokens()) {
+			try {
+				tempList.add(Double.valueOf(stok.nextToken()));
+			}
+			catch(NumberFormatException nfe)
+			{
+				//System.out.println("NumberFormatException: " + nfe.getMessage());
+			}
+		}
+	}
+	
+	/* Calculates the daily temp differences from one day to the next.
+	 * Pre:  All daily temps from the file have been stored in tempList.
+	 * Post: All daily differences will be stored in a new array.
+	 */
+	private static double[] calcDailyTemps() {
+		double[] tempChanges = new double[tempList.size() - 1];
+				
+		for(int i = 0; i < tempList.size() - 1; i++) {
+			tempChanges[i] = (tempList.get(i) - tempList.get(i + 1)) * -1; 
+		}
+		
+		return tempChanges;
+	}
+	
+	/* Prints the day to day change in the weather temps.
+	 * Pre:  Nothing
+	 * Post: Results have been printed
+	 */ 
+	private static void printResults(double[] tempChanges) {
+		/*for(int i = 0; i < tempList.size(); i++) {
+			System.out.print(tempList.get(i) + " ");
+		}
+		System.out.print("\n");*/
+		for(int i = 0; i < tempChanges.length; i++) {
+			System.out.println(tempList.get(i) + " to " + tempList.get(i + 1) + ", change = " + tempChanges[i]);
+		}
+	}
+	
+	/** private static arraylist */
+	private static ArrayList<Double> tempList = new ArrayList<Double>();
+}
