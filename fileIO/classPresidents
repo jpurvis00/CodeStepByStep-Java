@@ -1,0 +1,71 @@
+/* Read from a file and return which candidate received the most votes.
+ * There should be a winner for the sophmore class and a winner for the 
+ * junior class.
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class classPresidents {
+
+	public static void main(String []args) {
+		try {
+			Scanner input = new Scanner(new File("candidates.txt"));
+			classPresidents1(input);
+			input.close();
+		}
+		catch(IOException ex) {
+			System.out.println("Bad file name!");
+		}
+		
+		printWinner();
+	}
+	
+	/* Retrieves each line of the file specified by the user. */
+	private static void classPresidents1(Scanner fname) {
+		
+		while(fname.hasNextLine()) {
+			String line = fname.nextLine();
+			findWinner(line);
+		}
+	}
+	
+	/* Compares all users in the sophmore class and finds the winner.
+	 * Compares all users in the junior class and finds to winner.
+	 * Pre:  1 line of text from the file is being passed to method
+	 * Post: a winner for the sophmore and junior class has been determined
+	 */
+	private static void findWinner(String str) {
+		StringTokenizer stok = new StringTokenizer(str);
+
+		while(stok.hasMoreTokens()) {
+			//Assign 3 tokens to 3 vars.  This represents name, class, # of votes
+			String tname = stok.nextToken();
+			String tgrade = stok.nextToken();
+			int tvotes = Integer.parseInt(stok.nextToken());
+			
+			//compare the # of votes of all sophmores
+			if(tvotes > sVotes && tgrade.equals("s")) {
+				sName = tname;
+				sVotes = tvotes;
+			} 
+			//compare the # of votes of all juniors
+			else if(tvotes > jVotes && tgrade.equals("j")) {
+				jName = tname;
+				jVotes = tvotes;
+			}
+		}
+	}
+	
+	/* Prints the winner of the elections for both the junior and soph classes */
+	private static void printWinner() {
+		System.out.println("Sophmore Class President: " + sName + " (" + sVotes + " votes)");
+		System.out.println("Junior Class President: " + jName + " (" + jVotes + " votes)");
+	}
+	
+	/** private instance variables */
+	private static String sName = "";
+	private static int sVotes = 0;
+	private static String jName = "";
+	private static int jVotes = 0;
+}
