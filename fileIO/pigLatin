@@ -1,0 +1,57 @@
+/* Read all contents from a file and perform a pig latin transformation
+ * on all the words.  If the word starst with a vowel, simply add yay onto
+ * the end of the word.  If the word starts with a consonant, move the first
+ * char to the end and add ay.
+ */
+
+import java.io.*;
+import java.util.*;
+
+public class pigLatin {
+	public static void main(String []args) {
+		try {
+			//open file and send it to the readFile method
+			Scanner input = new Scanner(new File("lincoln.txt"));
+			readFile(input);
+			input.close();
+		}
+		catch(IOException ex) {
+			System.out.println("Bad file name!");
+		}
+	}
+	
+	/* Reads one line of the file at a time and sends that line to the pigLatin method.
+	 * Pre:  file is passed in
+	 * Post: 1 line has been read and passed to the pigLatin method
+	 */
+	private static void readFile(Scanner fname) {
+		while(fname.hasNextLine()) {
+			String line = fname.nextLine();
+			pigLatin1(line);
+		}
+	}
+	
+	/* Breaks a line of text into tokens and performs string manipulation on that line.
+	 * Pre:  One line of text from a file is passed in
+	 * Post: Each word has been turned into pig latin 
+	 */
+	private static void pigLatin1(String line) {
+		StringTokenizer stok = new StringTokenizer(line);
+		String word = "";
+		
+		//do this for every word in the line
+		while(stok.hasMoreTokens()) {
+			//convert token to string
+			word = stok.nextToken().toString();
+			//if the word starts with a vowel
+			if("AEIOUaeiou".indexOf(word.charAt(0)) != -1) {
+				System.out.print(word + "yay ");
+			} 
+			//word starts with a consonant
+			else { 
+				System.out.print(word.substring(1) + word.charAt(0) + "ay ");
+			}
+		}
+		System.out.print("\n");
+	}
+}
