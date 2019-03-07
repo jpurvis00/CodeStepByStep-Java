@@ -1,9 +1,9 @@
 
-public class removeDuplicatesFromFile {
+public class test2jeff {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		test1
+		System.out.println("hey");
 	}
 
 }
