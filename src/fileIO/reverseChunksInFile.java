@@ -1,4 +1,7 @@
-/*
+/* Read a file that is in the following format: word int
+ * Reverse int chars in the word.  If there are remaining chars at the end
+ * of the word append them.  
+ * ex. KeithSchwarz 5 -> htieKawhcSrz 
  * 
  */
 	
