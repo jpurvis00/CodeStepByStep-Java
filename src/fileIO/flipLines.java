@@ -17,11 +17,13 @@ public class flipLines {
 			System.out.print("Enter file name: ");
 			Scanner input = new Scanner(System.in);
 			File file = new File(input.nextLine());
+			int totLines = 0;
 			
 			try {
 				input = new Scanner(file);
-				flipLines1(input);
+				totLines = flipLines1(input);
 				input.close();
+				System.out.println("Total # of lines: " + totLines);
 				break;
 			}
 			catch(IOException ex) {
@@ -36,23 +38,27 @@ public class flipLines {
 	 * Pre:  File is passed into method
 	 * Post: All new lines have been printed to output
 	 */
-	private static void flipLines1(Scanner input) {
+	private static int flipLines1(Scanner input) {
 		String line1 = "";
 		String line2 = "";
+		int totLines = 0;
 		
 		while(input.hasNextLine()) {
 			line1 = input.nextLine().toLowerCase();
+			totLines++;
 						
 			//Even though we are in the loop bc there is a next line, there is no 
 			//guarantee that there are 2 more lines. Only assign and print if there is a 2nd line.
 			if(input.hasNextLine()) {
 				line2 = input.nextLine().toUpperCase();
 				System.out.println(line2);
+				totLines++;
 			} else
 				//# of lines is odd, last line of odd should always be uppercase
 				line1 = line1.toUpperCase();
 			
 			System.out.println(line1);
 		}
+		return totLines;
 	}
 }
