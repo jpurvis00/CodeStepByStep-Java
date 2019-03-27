@@ -54,18 +54,15 @@ public class removePalindromes {
 	 * Post: Returns true if the word is a palindrome and false if it's not
 	 */
 	private static boolean checkPalindrome(String word) {
-		boolean isEqual = false;
 		//Check each letter of the word
 		for(int i = 0; i < word.length(); i++) {
 			//Start at the first letter and compare it to the last letter in the word.  Then move in
 			//from both directions by 1 char and compare those until all letters have been compared.
-			//If any are not equal, isEqual will be set to false signifying that the word is not a palindrome.
-			if(word.toLowerCase().charAt(i) == word.toLowerCase().charAt(word.length() - (i + 1)))
-				isEqual = true;
-			else
-				isEqual = false;
+			//If any are not equal, return false signifying that the word is not a palindrome.
+			if(word.toLowerCase().charAt(i) != word.toLowerCase().charAt(word.length() - (i + 1)))
+				return false;
 		}
-		return isEqual;
+		return true;
 	}
 	
 	/* Print the array. */
